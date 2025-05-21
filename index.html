@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-CN, en-US">
+<head>
+    <meta charset="UTF-8">
+    <title>Music Box Tool</title>
+    <link rel="icon" href="img/favicon.png" type="image/x-icon">
+    <link type="text/css" rel="stylesheet" href="main.css">
+</head>
+<body>
+<header>
+    <h1 data-i18n-key="title">Loading...</h1>
+    <label for="langSwitcher">🌐
+        <select id="langSwitcher" onchange="i18n.setLang(this.value)"></select>
+    </label>
+</header>
+<div id="container">
+    <div id="sidebar">
+        <div class="box-area">
+            <div class="content">
+                <p><b data-i18n-key="nbsFile"></b></p>
+                <input id="upload" type="file" accept=".nbs" oninput="loadNBS(this.files)">
+            </div>
+        </div>
+
+        <div class="box-area">
+            <div class="content">
+                <p><b data-i18n-key="exportMethod"></b></p>
+                <button class="exportButton" disabled onclick="exportFile(this,MusicBoxTool.COMMAND_1_20)">
+                    <span data-i18n-key="command"></span> (1.20)
+                </button>
+                <button class="exportButton" disabled onclick="exportFile(this,MusicBoxTool.COMMAND_1_21)">
+                    <span data-i18n-key="command"></span> (1.21)
+                </button>
+                <button class="exportButton" data-i18n-key="pageByPage" disabled
+                        onclick="exportFile(this,MusicBoxTool.PAGES)">
+                </button>
+            </div>
+        </div>
+
+        <div class="box-area">
+            <div class="content">
+                <p><b data-i18n-key="jumpTo"></b></p>
+                <label for="langSwitcher">
+                    <select id="jumpToSelect" disabled onchange="jumpTo(this.value)"></select>
+                </label>
+                <div data-i18n-key="manual"></div>
+            </div>
+        </div>
+
+
+    </div>
+    <div id="result-bar" class="box-area" data-i18n-key="welcome"></div>
+</div>
+<script src="MusicBoxTool.js"></script>
+</body>
+</html>
