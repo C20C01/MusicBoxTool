@@ -41,9 +41,12 @@
             <div class="content">
                 <p><b data-i18n-key="jumpTo"></b></p>
                 <label for="langSwitcher">
-                    <select id="jumpToSelect" disabled onchange="jumpTo(this.value)"></select>
+                    <select id="jumpToSelect" disabled onchange="jumpTo(this.value)">
+                        <option data-i18n-key="jumpToHolder" selected></option>
+                    </select>
                 </label>
                 <div data-i18n-key="manual"></div>
+                <div data-i18n-key="repository"></div>
             </div>
         </div>
 

@@ -343,10 +343,10 @@ class MusicBoxTool {
         }
     }
 
-    #appendTitle(textContent, jumpable = false) {
+    #appendTitle(textContent, marked = false) {
         const element = document.createElement('div');
         element.className = "result-title";
-        if (jumpable) element.classList.add("jumpable");
+        if (marked) element.classList.add("marked");
         element.textContent = textContent;
         this.resultBar.appendChild(element);
     }
@@ -503,7 +503,9 @@ class I18n {
             "command": "Command",
             "pageByPage": "Page-by-page",
             "jumpTo": "🛫 Jump to",
-            "manual": "<button onclick=window.open(\"https://github.com/C20C01/MusicBox/blob/main/README.md\")>Manual</button>",
+            "manual": "<button onclick=window.open(\"https://github.com/C20C01/MusicBox/blob/main/README.md\")>Mod manual</button>",
+            "repository": "<button onclick=window.open(\"https://github.com/C20C01/MusicBoxTool\")>Tool manual</button>",
+            "jumpToHolder": "Result",
             "welcome":
                 "<p><b>🤗 Welcome to nbs file export tool</b></p>" +
                 "<p>A supporting tool for the mod「<a href=\"https://github.com/C20C01/MusicBox\">Music Box</a>」, used to transform nbs file to reference data for the mod.</p><br>" +
@@ -520,7 +522,9 @@ class I18n {
             "command": "命令",
             "pageByPage": "逐页导出",
             "jumpTo": "🛫 跳转",
-            "manual": "<button onclick=window.open(\"https://github.com/C20C01/MusicBox/blob/main/README/README_zh.md\")>说明</button>",
+            "manual": "<button onclick=window.open(\"https://github.com/C20C01/MusicBox/blob/main/README/README_zh.md\")>模组说明</button>",
+            "repository": "<button onclick=window.open(\"https://github.com/C20C01/MusicBoxTool\")>工具说明</button>",
+            "jumpToHolder": "结果",
             "welcome":
                 "<p><b>🤗 欢迎使用nbs文件导出工具</b></p>" +
                 "<p>模组「<a href=\"https://github.com/C20C01/MusicBox\">纸带八音盒</a>」的配套工具，用于将nbs文件转换为模组使用的参考数据。</p><br>" +
@@ -561,7 +565,7 @@ class I18n {
 
 const tool = new MusicBoxTool();
 const i18n = new I18n();
-const titleElements = new Map();
+const markedElements = new Map();
 const jumpToSelect = document.getElementById("jumpToSelect");
 
 async function loadNBS(files) {
@@ -574,7 +578,7 @@ async function loadNBS(files) {
         button.classList.remove("clicked");
     }
     jumpToSelect.disabled = false;
-    updateJumpable();
+    updateMarked();
 }
 
 function exportFile(element, type) {
@@ -583,20 +587,20 @@ function exportFile(element, type) {
     }
     element.classList.add("clicked");
     tool.export(type);
-    updateJumpable();
+    updateMarked();
 }
 
-function updateJumpable() {
-    titleElements.clear();
+function updateMarked() {
+    markedElements.clear();
     jumpToSelect.innerHTML = "";
-    for (const title of tool.resultBar.getElementsByClassName("jumpable")) {
-        titleElements.set(title.textContent, title);
-        jumpToSelect.add(new Option(title.textContent, title.textContent));
+    for (const marked of tool.resultBar.getElementsByClassName("marked")) {
+        markedElements.set(marked.textContent, marked);
+        jumpToSelect.add(new Option(marked.textContent, marked.textContent));
     }
 }
 
-function jumpTo(title) {
-    const target = titleElements.get(title);
+function jumpTo(mark) {
+    const target = markedElements.get(mark);
     if (target) {
         target.scrollIntoView();
     }

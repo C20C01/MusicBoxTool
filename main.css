@@ -4,7 +4,7 @@
     --color_3: #B36800;
     --color_4: #FFA529;
     --color_5: #12345678;
-    --color_6: rgba(255, 255, 246, 0.66);
+    --color_6: rgba(244, 244, 234, 0.95);
     --min-height: 800px;
 }
 
@@ -88,6 +88,7 @@ button, #jumpToSelect {
     border: 2px solid var(--color_3);
     min-height: 32px;
     transition: 0.5s;
+    background: #ffe2b9;
 }
 
 button:enabled:hover {
@@ -95,7 +96,7 @@ button:enabled:hover {
 }
 
 button.clicked {
-    background-color: darkgray;
+    background-color: #e3c9a5;
     border: 2px solid var(--color_1);
 }
 
