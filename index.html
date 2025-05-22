@@ -2,7 +2,7 @@
 <html lang="zh-CN, en-US">
 <head>
     <meta charset="UTF-8">
-    <title>Music Box Tool</title>
+    <title data-i18n-key="title">Loading...</title>
     <link rel="icon" href="img/favicon.png" type="image/x-icon">
     <link type="text/css" rel="stylesheet" href="main.css">
 </head>
@@ -10,7 +10,7 @@
 <header>
     <h1 data-i18n-key="title">Loading...</h1>
     <label for="langSwitcher">🌐
-        <select id="langSwitcher" onchange="i18n.setLang(this.value)"></select>
+        <select id="langSwitcher" onchange="setLang(this.value)"></select>
     </label>
 </header>
 <div id="container">

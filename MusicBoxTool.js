@@ -235,6 +235,10 @@ class MusicBoxTool {
     #notes;
     resultBar = document.getElementById("result-bar");
 
+    loaded() {
+        return this.#loaded;
+    }
+
     async loadFile(file) {
         this.#loaded = false;
         this.#nbsSong = await this.#loader.load(file);
@@ -540,23 +544,29 @@ class I18n {
         for (const lang in I18n.translations) {
             I18n.switcher.add(new Option(lang, lang));
         }
-        this.setLang(navigator.language);
+        this.setLang(navigator.language, true);
     }
 
-    getText(key) {
-        return I18n.translations[this.lang][key] || key;
+    static getText(lang, key) {
+        return I18n.translations[lang][key] || key;
     }
 
-    setLang(lang) {
-        this.lang = I18n.translations[lang] ? lang : "en-US";
-        I18n.switcher.value = this.lang;
-        this.#updateLang();
+    setLang(lang, force) {
+        lang = I18n.translations[lang] ? lang : "en-US";
+        if (lang === this.lang) {
+            return;
+        }
+        I18n.#updateLang(lang, force);
+        I18n.switcher.value = lang;
+        this.lang = lang;
     }
 
-    #updateLang() {
-        document.querySelectorAll('[data-i18n-key]').forEach(element => {
-            const key = element.getAttribute('data-i18n-key');
-            element.innerHTML = this.getText(key);
+    static #updateLang(lang, force) {
+        document.querySelectorAll('[data-i18n-key]').forEach(e => {
+            if (e.id !== "result-bar" || force) {
+                const key = e.getAttribute('data-i18n-key');
+                e.innerHTML = I18n.getText(lang, key);
+            }
         });
     }
 }
@@ -602,4 +612,8 @@ function jumpTo(mark) {
     if (target) {
         target.scrollIntoView();
     }
+}
+
+function setLang(lang) {
+    i18n.setLang(lang, !tool.loaded());
 }
