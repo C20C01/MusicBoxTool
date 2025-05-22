@@ -553,7 +553,7 @@ class I18n {
 
     setLang(lang, force) {
         lang = I18n.translations[lang] ? lang : "en-US";
-        if (lang === this.lang) {
+        if (lang === this.lang && !force) {
             return;
         }
         I18n.#updateLang(lang, force);
