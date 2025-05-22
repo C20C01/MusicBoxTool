@@ -470,11 +470,9 @@ class NoteGridCodeHelper {
             for (let i = 0; i < pageGap; i++) {
                 this.#nextPage();
             }
-            this.#code.push(this.#lastTick - tick);
-        } else {
-            this.#code.push(this.#lastTick - tick);
-            this.#lastTick = tick;
         }
+        this.#code.push(this.#lastTick - tick);
+        this.#lastTick = tick;
     }
 
     #nextPage() {
