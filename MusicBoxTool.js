@@ -300,9 +300,9 @@ class MusicBoxTool {
     }
 
     #showSongInfo() {
-        const songName = "💿 : " + this.#formatTextInCommand(this.#nbsSong.title || this.#nbsSong.fileName);
-        const originalAuthorName = "🎵 : " + (this.#formatTextInCommand(this.#nbsSong.originalAuthor) || "? ? ?");
-        const authorName = "💻 : " + (this.#formatTextInCommand(this.#nbsSong.author) || "? ? ?");
+        const songName = "💿 : " + (this.#nbsSong.title || this.#nbsSong.fileName);
+        const originalAuthorName = "🎵 : " + (this.#nbsSong.originalAuthor || "? ? ?");
+        const authorName = "💻 : " + (this.#nbsSong.author || "? ? ?");
         this.#appendTitle("nbs info", true);
         this.#appendResult("Song Name", songName);
         this.#appendResult("Original Author", originalAuthorName);
@@ -312,7 +312,7 @@ class MusicBoxTool {
 
     #exportByCommand(consumers) {
         const {songName, originalAuthorName, authorName} = this.#showSongInfo();
-        const lore = consumers.getLore(songName, originalAuthorName, authorName);
+        const lore = consumers.getLore(this.#formatTextInCommand(songName), this.#formatTextInCommand(originalAuthorName), this.#formatTextInCommand(authorName));
         for (const [instId, octaveMap] of this.#notes) {
             const instName = this.#formatTextInCommand(this.#nbsSong.getInstrumentName(instId));
             this.#appendTitle(instName, true);
